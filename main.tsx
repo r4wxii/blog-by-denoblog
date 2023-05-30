@@ -1,6 +1,7 @@
 /** @jsx h */
 
 import blog, { h } from "blog";
+import defineConfig from "./uno.config.ts";
 
 blog({
   title: "No one knows unknowns",
@@ -39,4 +40,5 @@ blog({
       </script>
     </section>
   ),
+  unocss: defineConfig,
 });
