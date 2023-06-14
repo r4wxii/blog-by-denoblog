@@ -15,7 +15,9 @@ blog({
   lang: "jp",
   favicon: "https://twemoji.maxcdn.com/v/latest/72x72/1f643.png",
   section: () => (
-    <section>
+    <section
+      mt="8"
+    >
       <a
         href="https://b.hatena.ne.jp/entry/"
         className="hatena-bookmark-button"
