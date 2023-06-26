@@ -1,6 +1,6 @@
 {
   "imports": {
     "blog": "https://deno.land/x/blog@0.6.0/blog.tsx",
-    "unocss": "npm:unocss@0.46.3"
+    "unocss": "https://cdn.skypack.dev/unocss@0.46.3"
   }
 }
