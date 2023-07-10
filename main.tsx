@@ -1,7 +1,7 @@
 /** @jsx h */
 
 import blog, { h } from "blog";
-import defineConfig from "./uno.config.ts";
+import { defineConfig } from "./uno.config.ts";
 import { Section } from "./section.tsx";
 
 blog({
