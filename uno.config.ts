@@ -1,6 +1,4 @@
-import { UserConfig } from "unocss"
-import presetWind from "unocss/preset-wind"
-import presetAttributify from "unocss/preset-attributify"
+import { UserConfig, presetWind, presetAttributify } from "unocss"
 
 export const defineConfig: UserConfig = {
     presets: [
