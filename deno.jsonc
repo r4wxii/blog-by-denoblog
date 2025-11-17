@@ -2,6 +2,7 @@
   "tasks": {
     "dev": "deno run --allow-net --allow-read --allow-env --watch main.tsx --dev",
     "serve": "deno run --allow-net --allow-read --allow-env --no-check main.tsx",
+    "export_mt": "deno run --allow-read --allow-write scripts/export_mt.ts"
   },
   "importMap": "./import_map.json"
 }
