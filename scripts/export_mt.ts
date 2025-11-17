@@ -62,26 +62,33 @@ function buildMtRecord(params: {
   basename: string;
 }): string {
   const parts: string[] = [];
-  parts.push(`TITLE: ${params.title}`);
+  const title = (params.title ?? "").trim();
+  if (title.length > 0) {
+    parts.push(`TITLE: ${title}`);
+  }
   parts.push(`AUTHOR: ${params.author}`);
   if (params.date) parts.push(`DATE: ${params.date}`);
   // Use original markdown filename (without extension) as Movable Type BASENAME
   parts.push(`BASENAME: ${params.basename}`);
   parts.push(`STATUS: Publish`);
   parts.push(`CONVERT BREAKS: markdown`);
-  parts.push(`TAGS:`);
-  parts.push(`-----`);
-  parts.push(`BODY:`);
-  parts.push(params.body.replaceAll("\r\n", "\n"));
-  parts.push(`-----`);
-  parts.push(`EXTENDED BODY:`);
-  parts.push("");
-  parts.push(`-----`);
-  parts.push(`EXCERPT:`);
-  parts.push(params.excerpt ?? "");
-  parts.push(`-----`);
-  parts.push(`KEYWORDS:`);
-  parts.push("");
+  // BODY (output only when non-empty)
+  const bodyNormalized = params.body.replaceAll("\r\n", "\n");
+  const hasBody = bodyNormalized.trim().length > 0;
+  if (hasBody) {
+    parts.push(`-----`);
+    parts.push(`BODY:`);
+    parts.push(bodyNormalized);
+  }
+
+  // Optional sections: output only when value exists
+  const excerpt = (params.excerpt ?? "").trim();
+  if (excerpt.length > 0) {
+    parts.push(`-----`);
+    parts.push(`EXCERPT:`);
+    parts.push(excerpt);
+  }
+
   parts.push(`--------`);
   return parts.join("\n");
 }
