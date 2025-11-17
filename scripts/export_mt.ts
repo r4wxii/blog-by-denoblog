@@ -59,11 +59,14 @@ function buildMtRecord(params: {
   date?: string;
   body: string;
   excerpt?: string;
+  basename: string;
 }): string {
   const parts: string[] = [];
   parts.push(`TITLE: ${params.title}`);
   parts.push(`AUTHOR: ${params.author}`);
   if (params.date) parts.push(`DATE: ${params.date}`);
+  // Use original markdown filename (without extension) as Movable Type BASENAME
+  parts.push(`BASENAME: ${params.basename}`);
   parts.push(`STATUS: Publish`);
   parts.push(`CONVERT BREAKS: markdown`);
   parts.push(`TAGS:`);
@@ -92,7 +95,10 @@ async function main() {
     const dateMt = toMtDate(fm.publish_date as string | undefined);
     const excerpt = (fm.abstract as string) ?? "";
     const author = "r4wxii"; // from main.tsx config
-    const record = buildMtRecord({ title, author, date: dateMt, body, excerpt });
+    // derive basename from file path: e.g., posts/entry/2024-12-17.md -> 2024-12-17
+    const filename = file.substring(file.lastIndexOf("/") + 1);
+    const basename = filename.endsWith(".md") ? filename.slice(0, -3) : filename;
+    const record = buildMtRecord({ title, author, date: dateMt, body, excerpt, basename });
     const dateKey = (fm.publish_date as string) ?? "0000-00-00";
     records.push({ dateKey, content: record });
   }
